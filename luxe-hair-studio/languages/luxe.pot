@@ -1,0 +1,174 @@
+# Luxe Hair Studio translation template.
+# Copyright (C) Luxe Hair Studio
+# This file is distributed under the same license as the theme.
+msgid ""
+msgstr ""
+"Project-Id-Version: Luxe Hair Studio 1.0.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: luxe\n"
+
+#: src
+msgid "Services"
+msgstr ""
+
+#: src
+msgid "Transformations"
+msgstr ""
+
+#: src
+msgid "The Mirror"
+msgstr ""
+
+#: src
+msgid "AI Consultation"
+msgstr ""
+
+#: src
+msgid "Stylists"
+msgstr ""
+
+#: src
+msgid "Booking"
+msgstr ""
+
+#: src
+msgid "Reserve a Chair"
+msgstr ""
+
+#: src
+msgid "The Sensory Salon"
+msgstr ""
+
+#: src
+msgid "Book Your Transformation"
+msgstr ""
+
+#: src
+msgid "Wander the menu"
+msgstr ""
+
+#: src
+msgid "Everything"
+msgstr ""
+
+#: src
+msgid "Junior"
+msgstr ""
+
+#: src
+msgid "Senior"
+msgstr ""
+
+#: src
+msgid "Master"
+msgstr ""
+
+#: src
+msgid "Book this shade"
+msgstr ""
+
+#: src
+msgid "Save the look"
+msgstr ""
+
+#: src
+msgid "Hold · before"
+msgstr ""
+
+#: src
+msgid "Your colour"
+msgstr ""
+
+#: src
+msgid "Mix your own"
+msgstr ""
+
+#: src
+msgid "Upload"
+msgstr ""
+
+#: src
+msgid "Camera · live"
+msgstr ""
+
+#: src
+msgid "Preparing the mirror…"
+msgstr ""
+
+#: src
+msgid "AI hair-map · on"
+msgstr ""
+
+#: src
+msgid "Classic engine"
+msgstr ""
+
+#: src
+msgid "Book a chair"
+msgstr ""
+
+#: src
+msgid "Prices"
+msgstr ""
+
+#: src
+msgid "Opening hours"
+msgstr ""
+
+#: src
+msgid "Find my stylist"
+msgstr ""
+
+#: src
+msgid "Message the concierge"
+msgstr ""
+
+#: src
+msgid "Privacy"
+msgstr ""
+
+#: src
+msgid "Terms"
+msgstr ""
+
+#: src
+msgid "Accessibility"
+msgstr ""
+
+#: src
+msgid "Cookie consent"
+msgstr ""
+
+#: src
+msgid "Accept"
+msgstr ""
+
+#: src
+msgid "Decline"
+msgstr ""
+
+#: src
+msgid "Email for newsletter"
+msgstr ""
+
+#: src
+msgid "Join"
+msgstr ""
+
+#: src
+msgid "Download settings & data"
+msgstr ""
+
+#: src
+msgid "Download theme ZIP"
+msgstr ""
+
+#: src
+msgid "One-Click Import Demo Content"
+msgstr ""
+
+#: src
+msgid "Luxe Hair Studio"
+msgstr ""

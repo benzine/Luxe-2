@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wp="http://wordpress.org/export/1.2/">
+<channel>
+	<title>Luxe Hair Studio</title>
+	<item>
+		<title>Home</title>
+		<wp:post_name>home</wp:post_name>
+		<wp:post_type>page</wp:post_type>
+		<wp:status>publish</wp:status>
+	</item>
+</channel>
+</rss>

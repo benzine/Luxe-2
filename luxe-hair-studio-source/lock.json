@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "name": "Luxe Hair Studio",
+    "kind": "react-spa",
+    "description": "Luxury hairdressing salon single-page app with a scroll-scrubbed transformation hero, service menu, before/after gallery, stylist matchmaker, AI consultation, booking, sensory salon, concierge and the Atelier Console.",
+    "warning": "The recovery artifact is luxe-rebuild-paste.txt (all sources byte-for-byte). The compiled deployable site is luxe-compiled-site.zip. Both are emitted by vite on every build.",
+    "recovery": "Paste luxe-rebuild-paste.txt into the chat, then npm install && npm run build."
+  },
+  "stack": {
+    "framework": "React 18 + Vite 6 + Tailwind CSS v4",
+    "language": "TypeScript 5",
+    "fonts": ["Cormorant Garamond (display)", "Cormorant Infant (accent italic)", "Inter (body)", "JetBrains Mono (mono)", "Fraunces + Playfair Display (alt display)"]
+  },
+  "designTokens": {
+    "light": { "bg": "#f5f0e8", "surface": "#fffdf8", "ink": "#3a2e2f", "rose": "#d4a5a5", "roseDeep": "#a67b7b", "gold": "#c9b037", "sage": "#a8b5a0" },
+    "dark": { "bg": "#241c1d", "surface": "#362a2b", "ink": "#f2e9e1" },
+    "hero": { "base": "#161112", "ink": "#f7f1e7", "gold": "#c9b037", "champagne": "#f5e6d3" }
+  },
+  "sections": ["hero", "services", "transformations", "stylists", "consultation", "booking", "experience"],
+  "features": [
+    "Scroll-scrubbed transformation hero (4 stages, title cards, progress rail, letterbox, grain)",
+    "Service menu with category filters + signature packages",
+    "Before/after drag-to-compare gallery",
+    "Stylist cards + weighted matchmaker quiz",
+    "AI consultation wizard (5 questions -> 3 looks)",
+    "4-step booking flow with slot availability",
+    "Sensory salon: marquee, testimonials, apothecary",
+    "Concierge chatbot (auto-opens once, FAQ answers)",
+    "Atelier Console (Customizer): design/content/sections/system, 5 presets, localStorage persistence",
+    "Light/dark theme, custom cursor, preloader, reduced-motion support"
+  ],
+  "customization": {
+    "consoleShortcut": "Ctrl/Cmd + Shift + A",
+    "persistKey": "luxe-config-v4",
+    "tabs": ["design", "content", "layout", "system"]
+  },
+  "artifacts": {
+    "compiledSite": "dist/luxe-compiled-site.zip",
+    "rebuildPaste": "dist/luxe-rebuild-paste.txt",
+    "note": "Serve the unzipped compiled site over http (npx serve). Do not open index.html from file://."
+  }
+}

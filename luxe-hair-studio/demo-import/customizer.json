@@ -1,0 +1,22 @@
+{
+  "design": {
+    "rose": "#D4A5A5",
+    "roseDeep": "#A67B7B",
+    "gold": "#C9B037",
+    "sage": "#A8B5A0",
+    "accent": "#C9B037",
+    "radius": 1,
+    "baseFontSize": 16,
+    "density": 1,
+    "animSpeed": 1,
+    "heroScrollSpeed": 3,
+    "displayFont": "cormorant",
+    "grain": true,
+    "motion": true,
+    "cursor": true,
+    "heroBase": "#161112",
+    "heroInk": "#f7f1e7",
+    "heroGold": "#c9b037",
+    "heroChampagne": "#f5e6d3"
+  }
+}
