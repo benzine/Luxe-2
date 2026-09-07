@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { configStore, useConfig, DEFAULT_DESIGN, type DesignConfig, type Slot, type CustomSectionData, type ServiceItem, type ServiceCat, type Stylist, type Package, type GalleryItem, type Testimonial, type Product, type Heading, type Amenity, type Stat, type QuizQuestion, type BookingAddon, type Tier, type MirrorMuse, type MirrorShade } from "../lib/config";
 import { Ic, toast } from "./Ornaments";
 
-type Tab = "sections" | "library" | "inspector" | "global" | "language" | "accessibility";
+type Tab = "design" | "content" | "mirror" | "layout" | "system" | "forms";
 type SectionViewMode = "fullpage" | "isolated";
 
 interface InspectorState {
@@ -307,7 +307,7 @@ export default function Console({ onClose }: { onClose: () => void }) {
   const d = cfg.design;
   const set = (patch: Partial<DesignConfig>) => configStore.setDesign(patch);
   const TABS: { id: Tab; label: string }[] = [
-    { id: "design", label: "Design" }, { id: "content", label: "Content" }, { id: "mirror", label: "Mirror" }, { id: "layout", label: "Sections" }, { id: "system", label: "System" },
+    { id: "design", label: "Design" }, { id: "content", label: "Content" }, { id: "mirror", label: "Mirror" }, { id: "layout", label: "Sections" }, { id: "system", label: "System" }, { id: "forms", label: "Forms" },
   ];
 
   return (
@@ -453,7 +453,141 @@ export default function Console({ onClose }: { onClose: () => void }) {
             </p>
           </div>
         )}
+
+        {tab === "forms" && <FormSettingsPanel />}
       </div>
+    </div>
+  );
+}
+
+interface FormSettingsState {
+  emailRecipient: string;
+  emailSubject: string;
+  successMessage: string;
+  errorMessage: string;
+  fromName: string;
+  saveSubmissions: boolean;
+}
+
+function FormSettingsPanel() {
+  const [settings, setSettings] = useState<FormSettingsState | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    fetch('/wp-json/luxe/v1/form/settings')
+      .then((res) => res.json())
+      .then((data) => {
+        setSettings(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const handleSave = async () => {
+    if (!settings) return;
+    setSaving(true);
+    try {
+      await fetch('/wp-json/luxe/v1/form/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings),
+      });
+      toast('Form settings saved!');
+    } catch {
+      toast('Failed to save settings', 'error');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="mt-6 text-center text-[#8f7d74]">Loading...</div>;
+  }
+
+  return (
+    <div className="mt-6 space-y-6">
+      <div>
+        <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-[#8f7d74] mb-4">Email Configuration</p>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-[11px] text-[#c0aea4] mb-1">Recipient Email</label>
+            <input
+              type="email"
+              value={settings?.emailRecipient || ''}
+              onChange={(e) => setSettings({ ...settings!, emailRecipient: e.target.value })}
+              className="w-full rounded-lg border border-[#f2e9e1]/15 bg-[#1c1516] px-3 py-2 text-[12px] text-[#f2e9e1]"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] text-[#c0aea4] mb-1">Email Subject</label>
+            <input
+              type="text"
+              value={settings?.emailSubject || ''}
+              onChange={(e) => setSettings({ ...settings!, emailSubject: e.target.value })}
+              className="w-full rounded-lg border border-[#f2e9e1]/15 bg-[#1c1516] px-3 py-2 text-[12px] text-[#f2e9e1]"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] text-[#c0aea4] mb-1">From Name</label>
+            <input
+              type="text"
+              value={settings?.fromName || ''}
+              onChange={(e) => setSettings({ ...settings!, fromName: e.target.value })}
+              className="w-full rounded-lg border border-[#f2e9e1]/15 bg-[#1c1516] px-3 py-2 text-[12px] text-[#f2e9e1]"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-[#8f7d74] mb-4">Messages</p>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-[11px] text-[#c0aea4] mb-1">Success Message</label>
+            <textarea
+              value={settings?.successMessage || ''}
+              onChange={(e) => setSettings({ ...settings!, successMessage: e.target.value })}
+              rows={2}
+              className="w-full rounded-lg border border-[#f2e9e1]/15 bg-[#1c1516] px-3 py-2 text-[12px] text-[#f2e9e1]"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] text-[#c0aea4] mb-1">Error Message</label>
+            <textarea
+              value={settings?.errorMessage || ''}
+              onChange={(e) => setSettings({ ...settings!, errorMessage: e.target.value })}
+              rows={2}
+              className="w-full rounded-lg border border-[#f2e9e1]/15 bg-[#1c1516] px-3 py-2 text-[12px] text-[#f2e9e1]"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-[#8f7d74] mb-4">Options</p>
+        <label className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            checked={settings?.saveSubmissions || false}
+            onChange={(e) => setSettings({ ...settings!, saveSubmissions: e.target.checked })}
+            className="h-4 w-4 rounded border-[#f2e9e1]/15 bg-[#1c1516] text-[#d9c25a]"
+          />
+          <span className="text-[11px] text-[#c0aea4]">Save submissions to database</span>
+        </label>
+      </div>
+
+      <button
+        onClick={handleSave}
+        disabled={saving}
+        className="w-full rounded-full border border-[#d9c25a]/60 bg-[#d9c25a]/10 px-5 py-3 font-mono text-[9px] uppercase tracking-[0.16em] text-[#d9c25a] disabled:opacity-50"
+      >
+        {saving ? 'Saving...' : 'Save Settings'}
+      </button>
+
+      <p className="text-[11px] text-[#8f7d74]">
+        Configure how form submissions are handled. All selections from dependent dropdowns (service, stylist, date, time, quiz answers, consultation details) will be included in the email sent to the admin.
+      </p>
     </div>
   );
 }

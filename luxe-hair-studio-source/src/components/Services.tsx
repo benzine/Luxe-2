@@ -1,16 +1,29 @@
 import { useState } from "react";
 import { useConfig } from "../lib/config";
+import { useFormStore } from "../lib/form-store";
 import { HairPart, Ic, Reveal, SectionHead, toast } from "./Ornaments";
 
 export interface BookPrefill { service?: string; stylist?: string; }
 
 export default function Services({ onBook }: { onBook: (p: BookPrefill) => void }) {
   const cfg = useConfig();
+  const formStore = useFormStore();
   const head = cfg.headings.services;
   const [cat, setCat] = useState("all");
   const cats = [{ id: "all", label: "Everything" }, ...cfg.services.map((c, i) => ({ id: `c${i}`, label: c.label }))];
   const shown = cfg.services.map((c, i) => ({ ...c, id: `c${i}` })).filter((c) => cat === "all" || c.id === cat);
 
+  const handleServiceSelect = (serviceName: string) => {
+    // Store selection in global form state
+    formStore.setField('service', serviceName);
+    toast(`Selected: ${serviceName}. Continue to booking or scroll to contact form.`);
+    
+    // Call the original onBook callback if provided
+    if (onBook) {
+      onBook({ service: serviceName });
+    }
+  };
+  
   return (
     <section id="services" className="relative bg-basesoft py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -44,8 +57,8 @@ export default function Services({ onBook }: { onBook: (p: BookPrefill) => void 
                 <div className="mt-6">
                   {c.items.map((s, i) => (
                     <Reveal key={s.name} delay={i * 70}>
-                      <button onClick={() => onBook({ service: s.name })} data-cursor="scissors"
-                        className="group relative grid w-full grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 overflow-hidden border-b border-linesoft px-2 py-5 text-left transition-colors hover:bg-surface/80 sm:grid-cols-[1fr_auto_auto] sm:px-4">
+                      <button onClick={() => handleServiceSelect(s.name)} data-cursor="scissors"
+                        className="group relative grid w-full grid-cols-[1fr_auto_auto] items-baseline gap-x-6 gap-y-1 overflow-hidden border-b border-linesoft px-2 py-5 text-left transition-colors hover:bg-surface/80 sm:grid-cols-[1fr_auto_auto] sm:px-4">
                         <span className="pointer-events-none absolute inset-y-0 left-0 w-0 bg-gradient-to-r from-rose-ghost to-transparent transition-all duration-500 group-hover:w-full" />
                         <span className="relative">
                           <span className="font-display block text-[21px] text-ink transition-transform duration-300 group-hover:translate-x-1.5">{s.name}</span>
@@ -86,7 +99,7 @@ export default function Services({ onBook }: { onBook: (p: BookPrefill) => void 
                       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-inkfaint">{pk.dur}</p>
                       <p className="font-display mt-1 text-3xl text-rosedeep">£{pk.price}<span className="font-accenti text-base text-inkfaint"> pp</span></p>
                     </div>
-                    <button onClick={() => onBook({ service: pk.name })} data-cursor="hand" aria-label={`Book ${pk.name}`}
+                    <button onClick={() => handleServiceSelect(pk.name)} data-cursor="hand" aria-label={`Book ${pk.name}`}
                       className="btn-sheen flex h-11 w-11 items-center justify-center rounded-full border border-rosedeep/60 text-rosedeep transition-transform duration-300 group-hover:rotate-45">
                       <Ic.ArrowRight className="h-4.5 w-4.5" />
                     </button>
