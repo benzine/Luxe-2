@@ -1,7 +1,60 @@
 ```
 # Build artifacts
-assets/build/
+dist/
+build/
+*.js
+*.css
+
+# Archives
+*.zip
+
+# Temporary files
+*.tmp
+*.log
+
+# Environment
+.env
+.env.local
+.env.*
 
 # Dependencies
 node_modules/
+
+# Editors
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Compiled
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Gradle
+.gradle/
+target/
+
+# MyPy
+.mypy_cache/
+
+# PyTest
+.pytest_cache/
+
+# System files
+.DS_Store
+Thumbs.db
 ```

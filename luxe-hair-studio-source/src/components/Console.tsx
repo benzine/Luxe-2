@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { configStore, useConfig, DEFAULT_DESIGN, type DesignConfig, type Slot, type CustomSectionData, type ServiceItem, type ServiceCat, type Stylist, type Package, type GalleryItem, type Testimonial, type Product, type Heading, type Amenity, type Stat, type QuizQuestion, type BookingAddon, type Tier, type MirrorMuse, type MirrorShade } from "../lib/config";
+import { configStore, useConfig, DEFAULT_DESIGN, PRESETS, type DesignConfig, type Slot, type CustomSectionData, type ServiceItem, type ServiceCat, type Stylist, type Package, type GalleryItem, type Testimonial, type Product, type Heading, type Amenity, type Stat, type QuizQuestion, type BookingAddon, type Tier, type MirrorMuse, type MirrorShade } from "../lib/config";
 import { Ic, toast } from "./Ornaments";
 
 type Tab = "design" | "content" | "mirror" | "layout" | "system" | "forms";
