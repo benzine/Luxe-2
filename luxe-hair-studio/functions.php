@@ -265,19 +265,8 @@ add_action( 'admin_menu', 'luxe_add_console_menu' );
  * This gives a full-screen editing experience without leaving WP Admin.
  */
 function luxe_render_console_admin_page() {
-	$console_url = home_url( '/#console' );
-	?>
-	<div class="wrap" style="margin:0;padding:0;">
-		<div style="padding:12px 20px;background:#1c1617;border-bottom:1px solid rgba(247,241,231,.1);display:flex;align-items:center;justify-content:space-between;">
-			<div style="display:flex;align-items:center;gap:14px;">
-				<span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:500;letter-spacing:.15em;color:#C9B037;">ATELIER</span>
-				<span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#a89c94;">Console · Live Customization</span>
-			</div>
-			<a href="<?php echo esc_url( $console_url ); ?>" target="_blank" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#C9B037;text-decoration:none;border:1px solid rgba(201,176,55,.4);padding:8px 16px;border-radius:999px;">Open in new tab ↗</a>
-		</div>
-		<iframe src="<?php echo esc_url( $console_url ); ?>" style="width:100%;height:calc(100vh - 100px);border:none;background:#161112;"></iframe>
-	</div>
-	<?php
+	// Include the native PHP 3-Rail Atelier Console
+	require_once get_template_directory() . '/inc/atelier-console.php';
 }
 
 /**
