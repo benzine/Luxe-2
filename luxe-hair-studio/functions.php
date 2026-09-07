@@ -556,3 +556,4 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/rest.php';
 require get_template_directory() . '/inc/demo-import.php';
 require get_template_directory() . '/inc/translate.php';
+require get_template_directory() . '/inc/form-handler.php';

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useConfig } from "../lib/config";
+import { useFormStore } from "../lib/form-store";
 import { Ic, Reveal, SectionHead } from "./Ornaments";
 import type { BookPrefill } from "./Services";
 
@@ -13,6 +14,7 @@ const QS = [
 
 export default function Consultation({ onBook }: { onBook: (p: BookPrefill) => void }) {
   const cfg = useConfig();
+  const formStore = useFormStore();
   const head = cfg.headings.consultation;
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -21,6 +23,10 @@ export default function Consultation({ onBook }: { onBook: (p: BookPrefill) => v
   const answer = (id: string, v: string) => {
     const next = { ...answers, [id]: v };
     setAnswers(next);
+    
+    // Store in global form state for later submission
+    formStore.setConsultationAnswer(id.toLowerCase().replace(/\s+/g, '_'), v);
+    
     if (step === QS.length - 1) setDone(true);
     else setStep((s) => s + 1);
   };
