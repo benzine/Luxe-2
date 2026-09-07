@@ -165,6 +165,13 @@ export const DEFAULT_DESIGN: DesignConfig = {
   dockRight: true, dockLeft: true,
 };
 
+export const PRESETS = [
+  { name: "Rose Gold", design: { rose: "#D4A5A5", roseDeep: "#A67B7B", gold: "#C9B037", sage: "#A8B5A0" } },
+  { name: "Midnight", design: { rose: "#8B7355", roseDeep: "#5C4A3D", gold: "#D4AF37", sage: "#6B7B6E" } },
+  { name: "Blush", design: { rose: "#E8C4C4", roseDeep: "#C9A5A5", gold: "#E5C88A", sage: "#BCC9BC" } },
+  { name: "Earth", design: { rose: "#B59687", roseDeep: "#8B6F5E", gold: "#C4A777", sage: "#9AAF93" } },
+];
+
 export const DEFAULT_CONFIG: SiteConfig = {
   design: { ...DEFAULT_DESIGN },
   stages: [

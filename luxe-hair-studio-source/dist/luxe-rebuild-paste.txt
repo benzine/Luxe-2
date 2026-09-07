@@ -852,7 +852,7 @@ export function FloatingDock() {
 
 === FILE: src/components/Console.tsx ===
 import { useState, useRef, useEffect } from "react";
-import { configStore, useConfig, DEFAULT_DESIGN, type DesignConfig, type Slot, type CustomSectionData, type ServiceItem, type ServiceCat, type Stylist, type Package, type GalleryItem, type Testimonial, type Product, type Heading, type Amenity, type Stat, type QuizQuestion, type BookingAddon, type Tier, type MirrorMuse, type MirrorShade } from "../lib/config";
+import { configStore, useConfig, DEFAULT_DESIGN, PRESETS, type DesignConfig, type Slot, type CustomSectionData, type ServiceItem, type ServiceCat, type Stylist, type Package, type GalleryItem, type Testimonial, type Product, type Heading, type Amenity, type Stat, type QuizQuestion, type BookingAddon, type Tier, type MirrorMuse, type MirrorShade } from "../lib/config";
 import { Ic, toast } from "./Ornaments";
 
 type Tab = "design" | "content" | "mirror" | "layout" | "system" | "forms";
@@ -4496,6 +4496,13 @@ export const DEFAULT_DESIGN: DesignConfig = {
   displayFont: "cormorant", grain: true, motion: true, cursor: true, contrast: false,
   dockRight: true, dockLeft: true,
 };
+
+export const PRESETS = [
+  { name: "Rose Gold", design: { rose: "#D4A5A5", roseDeep: "#A67B7B", gold: "#C9B037", sage: "#A8B5A0" } },
+  { name: "Midnight", design: { rose: "#8B7355", roseDeep: "#5C4A3D", gold: "#D4AF37", sage: "#6B7B6E" } },
+  { name: "Blush", design: { rose: "#E8C4C4", roseDeep: "#C9A5A5", gold: "#E5C88A", sage: "#BCC9BC" } },
+  { name: "Earth", design: { rose: "#B59687", roseDeep: "#8B6F5E", gold: "#C4A777", sage: "#9AAF93" } },
+];
 
 export const DEFAULT_CONFIG: SiteConfig = {
   design: { ...DEFAULT_DESIGN },
