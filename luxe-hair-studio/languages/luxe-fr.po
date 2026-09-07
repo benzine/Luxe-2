@@ -1,0 +1,372 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Luxe Hair Studio 1.0.0\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: luxe\n"
+
+#: src (nav.services)
+msgid "Services"
+msgstr "Services"
+
+#: src (nav.transformations)
+msgid "Transformations"
+msgstr "Transformations"
+
+#: src (nav.mirror)
+msgid "The Mirror"
+msgstr "Le Miroir"
+
+#: src (nav.consultation)
+msgid "AI Consultation"
+msgstr "Consultation IA"
+
+#: src (nav.stylists)
+msgid "Stylists"
+msgstr "Coiffeurs"
+
+#: src (nav.booking)
+msgid "Booking"
+msgstr "Réservation"
+
+#: src (nav.reserve)
+msgid "Reserve a Chair"
+msgstr "Réserver"
+
+#: src (nav.experience)
+msgid "The Sensory Salon"
+msgstr "Le Salon Sensoriel"
+
+#: src (header.sub)
+msgid "Hair Studio"
+msgstr "Studio de Coiffure"
+
+#: src (preloader.skip)
+msgid "Skip"
+msgstr "Passer"
+
+#: src (hero.introTagline)
+msgid "four cuts · one transformation"
+msgstr "quatre coupes · une transformation"
+
+#: src (hero.scrollHint)
+msgid "scroll to cut"
+msgstr "faites défiler pour couper"
+
+#: src (hero.cutPrefix)
+msgid "CUT"
+msgstr "COUPE"
+
+#: src (gallery.before)
+msgid "Before"
+msgstr "Avant"
+
+#: src (gallery.after)
+msgid "After"
+msgstr "Après"
+
+#: src (booking.anyStylist)
+msgid "Any available"
+msgstr "Tout disponible"
+
+#: src (booking.confirm)
+msgid "Confirm booking"
+msgstr "Confirmer la réservation"
+
+#: src (menu.everything)
+msgid "Everything"
+msgstr "Tout"
+
+#: src (mirror.chooseMuse)
+msgid "01 · Choose your muse"
+msgstr "01 · Choisissez votre muse"
+
+#: src (mirror.aim)
+msgid "02 · Select your hair"
+msgstr "02 · Sélectionnez vos cheveux"
+
+#: src (mirror.pour)
+msgid "03 · Pour the shade"
+msgstr "03 · Versez la teinte"
+
+#: src (mirror.finish)
+msgid "04 · The finish"
+msgstr "04 · La finition"
+
+#: src (mirror.upload)
+msgid "Upload"
+msgstr "Téléverser"
+
+#: src (mirror.camera)
+msgid "Camera · live"
+msgstr "Caméra · direct"
+
+#: src (mirror.mixOwn)
+msgid "Mix your own"
+msgstr "Créez la vôtre"
+
+#: src (mirror.yourColour)
+msgid "Your colour"
+msgstr "Votre couleur"
+
+#: src (mirror.warmth)
+msgid "Warmth"
+msgstr "Chaleur"
+
+#: src (mirror.shine)
+msgid "Shine"
+msgstr "Brillance"
+
+#: src (mirror.hold)
+msgid "hold · before"
+msgstr "maintenir · avant"
+
+#: src (mirror.before)
+msgid "before — release"
+msgstr "avant — relâcher"
+
+#: src (mirror.book)
+msgid "Book this shade"
+msgstr "Réserver cette teinte"
+
+#: src (mirror.save)
+msgid "Save the look"
+msgstr "Enregistrer le look"
+
+#: src (mirror.badgeOn)
+msgid "AI hair-map · on"
+msgstr "Carte capillaire IA · active"
+
+#: src (mirror.badgeLoading)
+msgid "AI hair-map · loading"
+msgstr "Carte capillaire IA · chargement"
+
+#: src (mirror.badgeOff)
+msgid "Classic engine"
+msgstr "Moteur classique"
+
+#: src (mirror.retry)
+msgid "retry AI map"
+msgstr "réessayer la carte IA"
+
+#: src (mirror.preparing)
+msgid "Preparing the mirror…"
+msgstr "Préparation du miroir…"
+
+#: src (mirror.blending)
+msgid "blending"
+msgstr "mélange"
+
+#: src (concierge.online)
+msgid "Salon concierge · online"
+msgstr "Conciergerie du salon · en ligne"
+
+#: src (concierge.placeholder)
+msgid "Ask me anything…"
+msgstr "Demandez-moi ce que vous voulez…"
+
+#: src (consult.kicker)
+msgid "AI Hair Consultation"
+msgstr "Consultation Capillaire IA"
+
+#: src (consult.photoTitleA)
+msgid "Show us your hair —"
+msgstr "Montrez-nous vos cheveux —"
+
+#: src (consult.photoTitleB)
+msgid "or don't."
+msgstr "ou pas."
+
+#: src (consult.photoSub)
+msgid "A photo lets us preview each look on you. Entirely optional, entirely private."
+msgstr "Une photo nous permet de prévisualiser chaque look sur vous. Entièrement facultatif, entièrement privé."
+
+#: src (consult.photoBtn)
+msgid "Continue without photo"
+msgstr "Continuer sans photo"
+
+#: src (consult.photoBtnWith)
+msgid "Lovely — continue"
+msgstr "Ravissant — continuer"
+
+#: src (consult.upload)
+msgid "Upload photo"
+msgstr "Téléverser une photo"
+
+#: src (consult.privacy)
+msgid "Processed locally. Never stored."
+msgstr "Traité localement. Jamais stocké."
+
+#: src (consult.composing)
+msgid "Composing your looks…"
+msgstr "Composition de vos looks…"
+
+#: src (consult.step1)
+msgid "Analyzing strand density…"
+msgstr "Analyse de la densité capillaire…"
+
+#: src (consult.step2)
+msgid "Mapping face geometry…"
+msgstr "Cartographie de la géométrie du visage…"
+
+#: src (consult.step3)
+msgid "Cross-referencing transformations…"
+msgstr "Croisement des transformations…"
+
+#: src (consult.step4)
+msgid "Hand-mixing your palette…"
+msgstr "Mélange de votre palette à la main…"
+
+#: src (consult.doneKicker)
+msgid "Consultation complete"
+msgstr "Consultation terminée"
+
+#: src (consult.doneTitleA)
+msgid "Three looks,"
+msgstr "Trois looks,"
+
+#: src (consult.doneTitleB)
+msgid "hand-written for you."
+msgstr "écrits à la main pour vous."
+
+#: src (consult.startOver)
+msgid "start over"
+msgstr "recommencer"
+
+#: src (consult.back)
+msgid "← Back"
+msgstr "← Retour"
+
+#: src (consult.book)
+msgid "Book this look"
+msgstr "Réserver ce look"
+
+#: src (consult.lookGlow)
+msgid "The Sunlit Gloss"
+msgstr "L'Éclat Ensoleillé"
+
+#: src (consult.lookCopper)
+msgid "The Rosewater Balayage"
+msgstr "Le Balayage Eau de Rose"
+
+#: src (consult.lookPlatinum)
+msgid "The Glacier Melt"
+msgstr "Le Fondu Glacier"
+
+#: src (consult.lookEspresso)
+msgid "The Espresso Lacquer"
+msgstr "Le Laqué Espresso"
+
+#: src (consult.lookFull)
+msgid "The Full Metamorphosis"
+msgstr "La Métamorphose Complète"
+
+#: src (consult.tag1)
+msgid "The head-turner"
+msgstr "Celui qui fait tourner les têtes"
+
+#: src (consult.tag2)
+msgid "The quiet luxury"
+msgstr "Le luxe discret"
+
+#: src (consult.tag3)
+msgid "The main character"
+msgstr "Le personnage principal"
+
+#: src (footer.explore)
+msgid "Explore"
+msgstr "Explorer"
+
+#: src (footer.care)
+msgid "Care"
+msgstr "Soin"
+
+#: src (footer.takeHome)
+msgid "Take the salon home"
+msgstr "Emportez le salon chez vous"
+
+#: src (footer.takeHomeA)
+msgid "The theme, the settings,"
+msgstr "Le thème, les réglages,"
+
+#: src (footer.takeHomeB)
+msgid "the data."
+msgstr "les données."
+
+#: src (footer.themeBtn)
+msgid "Download full theme ZIP"
+msgstr "Télécharger le thème ZIP complet"
+
+#: src (footer.themeBtnBusy)
+msgid "Packaging the full theme…"
+msgstr "Empaquetage du thème…"
+
+#: src (footer.settingsBtn)
+msgid "Download settings & data (.json)"
+msgstr "Télécharger réglages & données (.json)"
+
+#: src (footer.pasteBtn)
+msgid "Download rebuild-paste file (.txt)"
+msgstr "Télécharger le fichier de reconstruction (.txt)"
+
+#: src (footer.pasteBtnBusy)
+msgid "Preparing the paste file…"
+msgstr "Préparation du fichier…"
+
+#: src (footer.kitBtn)
+msgid "Download recovery kit (.zip)"
+msgstr "Télécharger le kit de récupération (.zip)"
+
+#: src (footer.kitBtnBusy)
+msgid "Assembling the kit…"
+msgstr "Assemblage du kit…"
+
+#: src (footer.importNote)
+msgid "Import via the Atelier Console · ⌘⇧A → System"
+msgstr "Importer via Atelier Console · ⌘⇧A → Système"
+
+#: src (footer.bandDesc)
+msgid "The theme ZIP embeds the exact compiled bundle serving this site — install it on WordPress and it renders this experience pixel for pixel, driven by your saved settings. Plus the full settings & data package."
+msgstr "Le ZIP du thème intègre le bundle compilé exact qui sert ce site — installez-le sur WordPress et il rend cette expérience pixel pour pixel, pilotée par vos réglages. Plus le package complet réglages & données."
+
+#: src (footer.pasteDesc)
+msgid "Your disaster-recovery lifeline — save it, and after any reset just paste it back"
+msgstr "Votre bouée de sauvetage — enregistrez-le et, après toute réinitialisation, recollez-le simplement"
+
+#: src (footer.siteBtn)
+msgid "Download compiled site (.zip)"
+msgstr "Télécharger le site compilé (.zip)"
+
+#: src (footer.siteDesc)
+msgid "The production build, ready to deploy — unzip and host anywhere"
+msgstr "La build de production, prête à déployer — décompressez et hébergez n'importe où"
+
+#: src (footer.kitDesc)
+msgid "Full source + locks + configs + recovery manual — a pixel-exact rebuild in one zip"
+msgstr "Source complète + locks + configs + manuel de récupération — une reconstruction pixel exacte en un zip"
+
+#: src (footer.newsSuccess)
+msgid "Welcome in — your first letter arrives Sunday."
+msgstr "Bienvenue — votre première lettre arrive dimanche."
+
+#: src (footer.join)
+msgid "Join"
+msgstr "S'inscrire"
+
+#: src (footer.linkServices)
+msgid "The Service Menu"
+msgstr "Le Menu des Services"
+
+#: src (footer.linkTransformations)
+msgid "Transformations"
+msgstr "Transformations"
+
+#: src (footer.linkMirror)
+msgid "The Mirror"
+msgstr "Le Miroir"
+
+#: src (footer.linkBooking)
+msgid "Reserve a Chair"
+msgstr "Réserver une Chaise"
