@@ -1,49 +1,303 @@
-import { useState } from "react";
-import { configStore, useConfig, DEFAULT_DESIGN, type DesignConfig } from "../lib/config";
+import { useState, useRef, useEffect } from "react";
+import { configStore, useConfig, DEFAULT_DESIGN, type DesignConfig, type Slot, type CustomSectionData, type ServiceItem, type ServiceCat, type Stylist, type Package, type GalleryItem, type Testimonial, type Product, type Heading, type Amenity, type Stat, type QuizQuestion, type BookingAddon, type Tier, type MirrorMuse, type MirrorShade } from "../lib/config";
 import { Ic, toast } from "./Ornaments";
 
-type Tab = "design" | "content" | "mirror" | "layout" | "system";
+type Tab = "sections" | "library" | "inspector" | "global" | "language" | "accessibility";
+type SectionViewMode = "fullpage" | "isolated";
 
-const PRESETS: { name: string; design: Partial<DesignConfig> }[] = [
-  { name: "Day Salon", design: { rose: "#D4A5A5", roseDeep: "#A67B7B", gold: "#C9B037", sage: "#A8B5A0", displayFont: "cormorant" } },
-  { name: "Evening Glamour", design: { rose: "#E3B6B6", roseDeep: "#C89A9A", gold: "#E0C766", sage: "#9FAE97", displayFont: "playfair" } },
-  { name: "Sage Atelier", design: { rose: "#B5C4AC", roseDeep: "#8FA386", gold: "#C9B037", sage: "#A8B5A0", displayFont: "fraunces" } },
-  { name: "Copper House", design: { rose: "#D9A08F", roseDeep: "#B47462", gold: "#D98E4A", sage: "#B5A98F", displayFont: "fraunces" } },
-  { name: "Platinum", design: { rose: "#C8C8CF", roseDeep: "#9C9CA8", gold: "#D8D8DE", sage: "#B4B4BC", displayFont: "playfair" } },
+interface InspectorState {
+  selectedType: "section" | "element" | null;
+  selectedSectionUid: string | null;
+  selectedElementId: string | null;
+  selectedElementType: "heading" | "text" | "button" | "image" | "list-item" | null;
+}
+
+const SECTION_TYPES = [
+  { id: "services", label: "Services Menu", icon: "menu" },
+  { id: "transformations", label: "Transformations", icon: "image" },
+  { id: "stylists", label: "Stylists", icon: "users" },
+  { id: "consultation", label: "AI Consultation", icon: "sparkle" },
+  { id: "mirror", label: "Virtual Mirror", icon: "mirror" },
+  { id: "booking", label: "Booking", icon: "calendar" },
+  { id: "experience", label: "Experience", icon: "flower" },
+  { id: "amenities", label: "Amenities", icon: "coffee" },
+  { id: "marquee", label: "Marquee Ticker", icon: "trending" },
+  { id: "stats", label: "Stats Counter", icon: "chart" },
+  { id: "quiz", label: "Style Quiz", icon: "question" },
+  { id: "tiers", label: "Pricing Tiers", icon: "layers" },
+  { id: "booking-addons", label: "Booking Addons", icon: "bag" },
+  { id: "custom", label: "Custom Section", icon: "plus" },
+];
+
+const MODULE_LIBRARY = [
+  { category: "Basic", modules: [
+    { id: "heading", label: "Heading", icon: "type" },
+    { id: "text", label: "Text Block", icon: "paragraph" },
+    { id: "button", label: "Button/CTA", icon: "pointer" },
+    { id: "divider", label: "Divider", icon: "minus" },
+    { id: "spacer", label: "Spacer", icon: "arrows-up-down" },
+  ]},
+  { category: "Media", modules: [
+    { id: "image", label: "Image", icon: "image" },
+    { id: "video", label: "Video", icon: "video" },
+    { id: "icon", label: "Icon", icon: "star" },
+  ]},
+  { category: "Interactive", modules: [
+    { id: "accordion", label: "Accordion", icon: "chevron-down" },
+    { id: "tabs", label: "Tabs", icon: "layout" },
+    { id: "form", label: "Form", icon: "mail" },
+    { id: "search", label: "Search", icon: "search" },
+  ]},
+  { category: "Dynamic", modules: [
+    { id: "testimonials", label: "Testimonials", icon: "quote" },
+    { id: "team", label: "Team Members", icon: "users" },
+    { id: "pricing", label: "Pricing Table", icon: "tag" },
+    { id: "blog", label: "Blog Posts", icon: "file-text" },
+    { id: "counters", label: "Counters", icon: "counter" },
+    { id: "timeline", label: "Timeline", icon: "clock" },
+    { id: "logo-carousel", label: "Logo Carousel", icon: "repeat" },
+  ]},
 ];
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-[#f2e9e1]/8 py-3">
-      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#c0aea4]">{label}</span>
+    <div className="flex items-center justify-between gap-4 border-b border-[#f2e9e1]/8 py-2.5">
+      <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#c0aea4]">{label}</span>
       <div className="flex items-center gap-3">{children}</div>
     </div>
   );
 }
+
 function ColorField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
     <Row label={label}>
-      <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="h-8 w-12 cursor-pointer rounded-lg border border-[#f2e9e1]/15 bg-transparent" />
-      <span className="font-mono text-[11px] text-[#8f7d74]">{value}</span>
+      <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="h-7 w-10 cursor-pointer rounded border border-[#f2e9e1]/15 bg-transparent" />
+      <span className="font-mono text-[10px] text-[#8f7d74]">{value}</span>
     </Row>
   );
 }
+
 function SliderField({ label, value, min, max, step, onChange, fmt }: { label: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; fmt?: (v: number) => string }) {
   return (
     <Row label={label}>
-      <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(+e.target.value)} className="range-luxe w-32" />
-      <span className="font-mono w-14 text-right text-[11px] text-[#d9c25a]">{fmt ? fmt(value) : value}</span>
+      <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(+e.target.value)} className="range-luxe w-28" />
+      <span className="font-mono w-12 text-right text-[10px] text-[#d9c25a]">{fmt ? fmt(value) : value}</span>
     </Row>
   );
 }
+
 function ToggleField({ label, value, onChange }: { label: string; value: boolean; onChange: (v: boolean) => void }) {
   return (
     <Row label={label}>
       <button onClick={() => onChange(!value)} data-cursor="hand" role="switch" aria-checked={value}
-        className={`relative h-6 w-11 rounded-full border transition-colors ${value ? "border-[#a8b5a0] bg-[#a8b5a0]/30" : "border-[#f2e9e1]/20 bg-transparent"}`}>
-        <span className={`absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full transition-all ${value ? "left-6 bg-[#a8b5a0]" : "left-1 bg-[#8f7d74]"}`} />
+        className={`relative h-5 w-9 rounded-full border transition-colors ${value ? "border-[#a8b5a0] bg-[#a8b5a0]/30" : "border-[#f2e9e1]/20 bg-transparent"}`}>
+        <span className={`absolute top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full transition-all ${value ? "left-5 bg-[#a8b5a0]" : "left-0.5 bg-[#8f7d74]"}`} />
       </button>
     </Row>
+  );
+}
+
+function SectionToolbar({ section, onBack, onMoveUp, onMoveDown, onDuplicate, onDelete, onToggleVisibility }: { 
+  section: Slot; 
+  onBack: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  onDuplicate: () => void;
+  onDelete: () => void;
+  onToggleVisibility: () => void;
+}) {
+  const [deviceView, setDeviceView] = useState<"desktop" | "tablet" | "mobile">("desktop");
+  
+  return (
+    <div className="sticky top-0 z-20 flex items-center justify-between border-b border-[#f2e9e1]/10 bg-[#241c1d]/95 px-6 py-3 backdrop-blur">
+      <div className="flex items-center gap-4">
+        <button onClick={onBack} data-cursor="hand" className="flex items-center gap-2 rounded-full border border-[#f2e9e1]/15 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#c0aea4] hover:text-[#f2e9e1]">
+          <Ic.ChevronLeft className="h-3.5 w-3.5" /> Back to Full Page
+        </button>
+        <div className="h-5 w-px bg-[#f2e9e1]/10" />
+        <span className="font-display text-lg capitalize text-[#f2e9e1]">{section.id}</span>
+      </div>
+      
+      <div className="flex items-center gap-2">
+        <div className="flex items-center rounded-lg border border-[#f2e9e1]/15 bg-[#1c1516]">
+          {(["desktop", "tablet", "mobile"] as const).map((device) => (
+            <button
+              key={device}
+              onClick={() => setDeviceView(device)}
+              data-cursor="hand"
+              className={`p-2 transition-colors ${deviceView === device ? "text-[#d9c25a]" : "text-[#c0aea4] hover:text-[#f2e9e1]"}`}
+              title={`${device} view`}
+            >
+              {device === "desktop" && <Ic.Monitor className="h-4 w-4" />}
+              {device === "tablet" && <Ic.Tablet className="h-4 w-4" />}
+              {device === "mobile" && <Ic.Smartphone className="h-4 w-4" />}
+            </button>
+          ))}
+        </div>
+        
+        <div className="h-5 w-px bg-[#f2e9e1]/10" />
+        
+        <button onClick={onToggleVisibility} data-cursor="hand" className={`rounded-full border px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.14em] ${section.enabled ? "border-[#a8b5a0]/50 text-[#a8b5a0]" : "border-[#c98d8d]/50 text-[#c98d8d]"}`}>
+          {section.enabled ? <><Ic.Eye className="mr-1 inline h-3.5 w-3.5" /> Visible</> : <><Ic.EyeOff className="mr-1 inline h-3.5 w-3.5" /> Hidden</>}
+        </button>
+        
+        <button onClick={onMoveUp} data-cursor="hand" className="rounded-full border border-[#f2e9e1]/15 p-2 text-[#c0aea4] hover:text-[#f2e9e1]" title="Move Up">
+          <Ic.ArrowUp className="h-4 w-4" />
+        </button>
+        <button onClick={onMoveDown} data-cursor="hand" className="rounded-full border border-[#f2e9e1]/15 p-2 text-[#c0aea4] hover:text-[#f2e9e1]" title="Move Down">
+          <Ic.ArrowDown className="h-4 w-4" />
+        </button>
+        <button onClick={onDuplicate} data-cursor="hand" className="rounded-full border border-[#f2e9e1]/15 p-2 text-[#c0aea4] hover:text-[#f2e9e1]" title="Duplicate">
+          <Ic.Copy className="h-4 w-4" />
+        </button>
+        <button onClick={onDelete} data-cursor="hand" className="rounded-full border border-[#e3b6b6]/40 p-2 text-[#e3b6b6] hover:bg-[#e3b6b6]/10" title="Delete">
+          <Ic.Trash2 className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function InspectorPanel({ inspector, onClose }: { inspector: InspectorState; onClose: () => void }) {
+  const cfg = useConfig();
+  const section = cfg.slots.find(s => s.uid === inspector.selectedSectionUid);
+  
+  if (!inspector.selectedSectionUid || !section) return null;
+  
+  return (
+    <div className="w-80 border-l border-[#f2e9e1]/10 bg-[#241c1d] p-5 overflow-y-auto">
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="font-mono text-[9px] uppercase tracking-[0.22em] text-[#d9c25a]">
+          {inspector.selectedType === "section" ? "Section Settings" : "Element Settings"}
+        </h3>
+        <button onClick={onClose} data-cursor="hand" className="text-[#c0aea4] hover:text-[#f2e9e1]">
+          <Ic.X className="h-4 w-4" />
+        </button>
+      </div>
+      
+      {inspector.selectedType === "section" && (
+        <div className="space-y-4">
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Layout</p>
+            <Row label="Width">
+              <select className="rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1 text-[10px] text-[#f2e9e1]">
+                <option>Full Width</option>
+                <option>Contained</option>
+                <option>Custom</option>
+              </select>
+            </Row>
+            <SliderField label="Max Width" value={1200} min={960} max={1600} step={40} onChange={() => {}} fmt={(v) => `${v}px`} />
+            <Row label="Columns">
+              <input type="number" min={1} max={12} defaultValue={1} className="w-16 rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1 text-[10px] text-[#f2e9e1]" />
+            </Row>
+          </div>
+          
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Spacing</p>
+            <SliderField label="Padding Top" value={80} min={0} max={200} step={10} onChange={() => {}} fmt={(v) => `${v}px`} />
+            <SliderField label="Padding Bottom" value={80} min={0} max={200} step={10} onChange={() => {}} fmt={(v) => `${v}px`} />
+          </div>
+          
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Background</p>
+            <ColorField label="Color" value="#241c1d" onChange={() => {}} />
+            <Row label="Image">
+              <button data-cursor="hand" className="rounded border border-[#f2e9e1]/15 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#c0aea4] hover:text-[#f2e9e1]">
+                Upload
+              </button>
+            </Row>
+          </div>
+          
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Animation</p>
+            <Row label="Entrance">
+              <select className="rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1 text-[10px] text-[#f2e9e1]">
+                <option>Fade In</option>
+                <option>Slide Up</option>
+                <option>Zoom</option>
+                <option>None</option>
+              </select>
+            </Row>
+            <SliderField label="Duration" value={600} min={200} max={2000} step={100} onChange={() => {}} fmt={(v) => `${v}ms`} />
+          </div>
+        </div>
+      )}
+      
+      {inspector.selectedType === "element" && inspector.selectedElementType === "heading" && (
+        <div className="space-y-4">
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Typography</p>
+            <Row label="Tag">
+              <select className="rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1 text-[10px] text-[#f2e9e1]">
+                <option>H1</option>
+                <option>H2</option>
+                <option>H3</option>
+                <option>H4</option>
+                <option>p</option>
+              </select>
+            </Row>
+            <SliderField label="Font Size" value={48} min={12} max={96} step={2} onChange={() => {}} fmt={(v) => `${v}px`} />
+            <ColorField label="Color" value="#f2e9e1" onChange={() => {}} />
+          </div>
+          
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Spacing</p>
+            <SliderField label="Margin Bottom" value={24} min={0} max={100} step={4} onChange={() => {}} fmt={(v) => `${v}px`} />
+          </div>
+        </div>
+      )}
+      
+      {inspector.selectedType === "element" && inspector.selectedElementType === "button" && (
+        <div className="space-y-4">
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Content</p>
+            <Row label="Text">
+              <input type="text" defaultValue="Book Now" className="w-full rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1.5 text-[11px] text-[#f2e9e1]" />
+            </Row>
+            <Row label="Link URL">
+              <input type="text" defaultValue="#booking" className="w-full rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1.5 text-[11px] text-[#f2e9e1]" />
+            </Row>
+            <ToggleField label="Open in new tab" value={false} onChange={() => {}} />
+          </div>
+          
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Style</p>
+            <Row label="Variant">
+              <select className="rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1 text-[10px] text-[#f2e9e1]">
+                <option>Solid</option>
+                <option>Outline</option>
+                <option>Gradient</option>
+                <option>Ghost</option>
+              </select>
+            </Row>
+            <ColorField label="Background" value="#d9c25a" onChange={() => {}} />
+            <ColorField label="Text" value="#241c1d" onChange={() => {}} />
+          </div>
+        </div>
+      )}
+      
+      {inspector.selectedType === "element" && inspector.selectedElementType === "image" && (
+        <div className="space-y-4">
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Source</p>
+            <Row label="Image">
+              <button data-cursor="hand" className="w-full rounded border border-[#f2e9e1]/15 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#c0aea4] hover:text-[#f2e9e1]">
+                <Ic.Upload className="mr-2 inline h-3.5 w-3.5" /> Upload / Replace
+              </button>
+            </Row>
+            <Row label="Alt Text">
+              <input type="text" placeholder="Describe the image" className="w-full rounded border border-[#f2e9e1]/15 bg-[#241c1d] px-2 py-1.5 text-[11px] text-[#f2e9e1]" />
+            </Row>
+          </div>
+          
+          <div className="rounded-lg border border-[#f2e9e1]/10 bg-[#1c1516] p-4">
+            <p className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#8f7d74] mb-3">Appearance</p>
+            <SliderField label="Width" value={100} min={20} max={100} step={5} onChange={() => {}} fmt={(v) => `${v}%`} />
+            <SliderField label="Radius" value={0.5} min={0} max={2} step={0.1} onChange={() => {}} fmt={(v) => `${v}×`} />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
