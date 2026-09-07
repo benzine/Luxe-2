@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { configStore, useConfig, DEFAULT_DESIGN, PRESETS, type DesignConfig, type Slot, type CustomSectionData, type ServiceItem, type ServiceCat, type Stylist, type Package, type GalleryItem, type Testimonial, type Product, type Heading, type Amenity, type Stat, type QuizQuestion, type BookingAddon, type Tier, type MirrorMuse, type MirrorShade } from "../lib/config";
 import { Ic, toast } from "./Ornaments";
 
-type Tab = "design" | "content" | "mirror" | "layout" | "system" | "forms";
+type LeftTab = "sections" | "library" | "global" | "language" | "accessibility";
 type SectionViewMode = "fullpage" | "isolated";
 
 interface InspectorState {
@@ -10,9 +10,11 @@ interface InspectorState {
   selectedSectionUid: string | null;
   selectedElementId: string | null;
   selectedElementType: "heading" | "text" | "button" | "image" | "list-item" | null;
+  elementData?: any;
 }
 
 const SECTION_TYPES = [
+  { id: "hero", label: "Hero Section", icon: "image" },
   { id: "services", label: "Services Menu", icon: "menu" },
   { id: "transformations", label: "Transformations", icon: "image" },
   { id: "stylists", label: "Stylists", icon: "users" },
@@ -26,6 +28,8 @@ const SECTION_TYPES = [
   { id: "quiz", label: "Style Quiz", icon: "question" },
   { id: "tiers", label: "Pricing Tiers", icon: "layers" },
   { id: "booking-addons", label: "Booking Addons", icon: "bag" },
+  { id: "products", label: "Products", icon: "shopping-bag" },
+  { id: "testimonials", label: "Testimonials", icon: "quote" },
   { id: "custom", label: "Custom Section", icon: "plus" },
 ];
 
@@ -57,6 +61,13 @@ const MODULE_LIBRARY = [
     { id: "timeline", label: "Timeline", icon: "clock" },
     { id: "logo-carousel", label: "Logo Carousel", icon: "repeat" },
   ]},
+];
+
+const LANGUAGES = [
+  { code: "en", label: "English", flag: "🇬🇧" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
 ];
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
