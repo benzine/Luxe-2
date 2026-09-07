@@ -1,15 +1,6 @@
 ```
 # Build artifacts
-dist/
-*.zip
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# Logs
-*.log
+assets/build/
 
 # Dependencies
 node_modules/
