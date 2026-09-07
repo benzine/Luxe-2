@@ -1,1 +1,19 @@
-(empty)
+```
+# Build artifacts
+luxe-hair-studio/assets/build/
+luxe-hair-studio-source/dist/
+
+# Compressed files
+*.zip
+
+# Dependencies
+node_modules/
+
+# Editor/IDE files
+.vscode/
+.idea/
+
+# Logs and temp files
+*.log
+*.tmp
+```
