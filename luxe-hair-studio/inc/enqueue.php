@@ -23,12 +23,10 @@ function luxe_enqueue_app() {
 		null
 	);
 
-	/* Register the main app script. Version is intentionally null on the
-	   script itself: Vite resolves relative chunk URLs against the main
-	   script's URL, and a ?ver= query string would make those relative
-	   resolutions ambiguous. The version is still printed in style.css
-	   header for reference. */
-	wp_enqueue_script( 'luxe-app', $uri . '/assets/build/index-CmTwKDZU.js', array(), null, true );
+	/* Register the main app script. Using stable filenames (index.js / index.css)
+	   copied from the Vite build to avoid version query strings breaking relative
+	   chunk resolution. */
+	wp_enqueue_script( 'luxe-app', $uri . '/assets/build/index.js', array(), LUXE_VERSION, true );
 
 	/* Spec bridge: runtime settings + REST endpoint for the app. */
 	wp_localize_script(
@@ -62,7 +60,7 @@ add_filter( 'script_loader_tag', 'luxe_script_module_tag', 10, 2 );
  */
 function luxe_strip_script_version( $src ) {
 	if ( is_admin() ) { return $src; }
-	if ( false !== strpos( $src, 'assets/build/index-CmTwKDZU.js' ) ) {
+	if ( false !== strpos( $src, 'assets/build/index.js' ) ) {
 		$src = remove_query_arg( 'ver', $src );
 	}
 	return $src;
