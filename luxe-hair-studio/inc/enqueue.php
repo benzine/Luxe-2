@@ -28,7 +28,7 @@ function luxe_enqueue_app() {
 	   script's URL, and a ?ver= query string would make those relative
 	   resolutions ambiguous. The version is still printed in style.css
 	   header for reference. */
-	wp_enqueue_script( 'luxe-app', $uri . '/assets/build/index-DWGSPasI.js', array(), null, true );
+	wp_enqueue_script( 'luxe-app', $uri . '/assets/build/index-CmTwKDZU.js', array(), null, true );
 
 	/* Spec bridge: runtime settings + REST endpoint for the app. */
 	wp_localize_script(
@@ -62,7 +62,7 @@ add_filter( 'script_loader_tag', 'luxe_script_module_tag', 10, 2 );
  */
 function luxe_strip_script_version( $src ) {
 	if ( is_admin() ) { return $src; }
-	if ( false !== strpos( $src, 'assets/build/index-DWGSPasI.js' ) ) {
+	if ( false !== strpos( $src, 'assets/build/index-CmTwKDZU.js' ) ) {
 		$src = remove_query_arg( 'ver', $src );
 	}
 	return $src;
