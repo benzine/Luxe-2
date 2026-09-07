@@ -2,14 +2,32 @@
 # Build artifacts
 dist/
 *.zip
-*.tmp
 
-# Dependencies
-node_modules/
+# Environment
+.env
+.env.local
+*.env.*
 
 # Editors
 .vscode/
+.idea/
 
-# Logs
+# Logs and temp files
 *.log
+*.tmp
+*.swp
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+target/
+.gradle/
+
+# OS
+.DS_Store
+Thumbs.db
 ```
